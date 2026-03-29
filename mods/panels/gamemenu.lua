@@ -74,31 +74,17 @@ DF:NewModule('gamemenu', 1, function()
     end)
     yOffset = yOffset - buttonHeight - buttonSpacing * emptySpacing
 
-    local soundBtn = DF.ui.Button(frame, 'Sound', 79, buttonHeight)
-    soundBtn:SetPoint('TOP', frame, 'TOP', -40.5, yOffset)
-    soundBtn:SetScript('OnClick', function()
+    local optionsBtn = DF.ui.Button(frame, 'Options', 160, buttonHeight)
+    optionsBtn:SetPoint('TOP', frame, 'TOP', 0, yOffset)
+    optionsBtn:SetScript('OnClick', function()
         frame:Hide()
-        if not OpenUnifiedSettings('Sound') and SoundOptionsFrame then
-            ShowUIPanel(SoundOptionsFrame)
-        end
-    end)
-
-    local videoBtn = DF.ui.Button(frame, 'Video', 79, buttonHeight)
-    videoBtn:SetPoint('LEFT', soundBtn, 'RIGHT', -2, 0)
-    videoBtn:SetScript('OnClick', function()
-        frame:Hide()
-        if not OpenUnifiedSettings('Video') and OptionsFrame then
+        if OpenUnifiedSettings() then return end
+        if OptionsFrame then
             ShowUIPanel(OptionsFrame)
-        end
-    end)
-    yOffset = yOffset - buttonHeight - buttonSpacing
-
-    local uiBtn = DF.ui.Button(frame, 'Interface', 160, buttonHeight)
-    uiBtn:SetPoint('TOP', frame, 'TOP', 0, yOffset)
-    uiBtn:SetScript('OnClick', function()
-        frame:Hide()
-        if not OpenUnifiedSettings('Interface') and UIOptionsFrame then
+        elseif UIOptionsFrame then
             ShowUIPanel(UIOptionsFrame)
+        elseif SoundOptionsFrame then
+            ShowUIPanel(SoundOptionsFrame)
         end
     end)
     yOffset = yOffset - buttonHeight - buttonSpacing * emptySpacing
